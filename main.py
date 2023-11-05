@@ -1,5 +1,6 @@
 import os
 import pandas
+import matplotlib.pyplot as plt
 from flask import Flask, render_template, flash, request, redirect, session, url_for, send_from_directory
 from werkzeug.utils import secure_filename
 
@@ -52,6 +53,7 @@ def show_data():
         # file_path = session.get('uploaded_csv_path')
 
         df = pandas.read_csv(file_path)
+        
         listOfDicts = []
 
         for index, row in df.iterrows():
@@ -63,10 +65,56 @@ def show_data():
 
         file_path = os.path.join(app.config['UPLOAD_FOLDER'],"out.csv")
 
+        df = pandas.read_csv(file_path)
+
+        approval = 0
+        nonapproval = 0
+        score = 0
+        ltv_2 = 0
+        ltv_1 = 0
+        dtv_2 = 0
+        dtv_1 = 0
+        fedti = 0
+
+        for index, row in df.iterrows():
+            approval_status = row['Approved']
+            score_status = row['CreditScore_y']
+            ltv_status = row['LTV']
+            dtv_status = row['DTV']
+            fedti_status = row['FEDTI']
+
+            if approval_status == True:
+                approval += 1
+            elif approval_status == False:
+                nonapproval += 1
+            if score_status == False:
+                score += 1
+            if ltv_status == 2:
+                ltv_2 += 1
+            elif ltv_status == 1:
+                ltv_1 += 1
+            if dtv_status == 2:
+                dtv_2 += 1
+            elif dtv_status == 1:
+                dtv_1 += 1
+            if fedti_status == False:
+                fedti += 1
+        
+        total = approval + nonapproval
+
+        appr_df = pandas.DataFrame({'Approval Status': ['Approved','Not approved'], 'Count':[approval, nonapproval]})
+        appr_plot = appr_df.groupby(['Approval Status']).sum().plot(kind='pie', y='Count', autopct='%1.0f%%') 
+        plt.savefig(os.path.join("static","out.png"))
+        plt.clf()
+        score_df = pandas.DataFrame({'Reason': ['Credit Score','LTV','DTV','FEDTI'], 'Count':[score, ltv_2, dtv_2, fedti]})
+        score_plot = score_df.groupby(['Reason']).sum().plot(kind='pie', y ='Count', autopct='%1.0f%%') 
+        plt.savefig(os.path.join("static","out2.png"))
+
         uploaded_csv = pandas.read_csv(file_path, nrows=300)
         html_csv = uploaded_csv.to_html()
-        return render_template("data.html", csv_data=html_csv)
-    return render_template("data.html", csv_data="")
+
+        return render_template("data.html", csv_data=html_csv, file="out.png", file2="out2.png")
+    return render_template("data.html", csv_data="", file="", file2 = "")
 
 @app.route("/results/<filename>")
 def download_results(filename):

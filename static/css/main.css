@@ -538,6 +538,10 @@ video {
   position: static;
 }
 
+.m-10 {
+  margin: 2.5rem;
+}
+
 .m-auto {
   margin: auto;
 }
@@ -554,6 +558,10 @@ video {
   display: flex;
 }
 
+.grid {
+  display: grid;
+}
+
 .h-2\/4 {
   height: 50%;
 }
@@ -564,6 +572,14 @@ video {
 
 .w-6\/12 {
   width: 50%;
+}
+
+.list-disc {
+  list-style-type: disc;
+}
+
+.grid-cols-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .flex-col {
