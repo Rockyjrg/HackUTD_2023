@@ -10,20 +10,20 @@
       {% if eligibilityCheck.credit_score %}
       <li>
         Great job, it looks like you met the required Credit Score:
-        {{eligibilityCheck.credit_score}}
+        {{credit_score}}
       </li>
       {% else %}
       <li>
         Sorry it looks like you didn't exactly reach the required credit score
-        of 640 since you had a {{eligibilityCheck.credit_score}}, but that
-        doesn't mean you should give up. I have some great resources for you to
-        check out that can help you raise your scores:
+        of 640 since you had a {{credit_score}}, but that doesn't mean you
+        should give up. I have some great resources for you to check out that
+        can help you raise your scores:
       </li>
       <ul>
         <li>
           <a
             href="https://yourhome.fanniemae.com/rent/credit-basics#:~:text=Showing%20consistent%20on%2Dtime%20payments,you%20achieve%20your%20financial%20goals."
-            >A great resource from Fannie Mae on building credit slowely but
+            >A great resource from Fannie Mae on building credit slowly but
             surely.</a
           >
         </li>
@@ -42,30 +42,114 @@
           >
         </li>
       </ul>
+      {% endif %} {% if eligibilityCheck.LTV == 0 %}
+      <li>You have a LTV of below 80, it is {{LTV}}. No Need for PMI</li>
+      {% elif eligibilityCheck.LTV == 1 %}
+      <li>
+        Sorry, your LTV is above 95%. Your current LTV is {{LTV}}. Consider
+        increasing your down payment if you are able to, if not it isn't the end
+        of the world. There are more ways to decrease your LTV to 80%. I have
+        linked some articles just for you to learn more about what you can do to
+        lower it.
+      </li>
+      <ul>
+        <li>
+          <a
+            href="https://www.rocketmortgage.com/learn/loan-to-value-ratio#:~:text=Make%20A%20Larger%20Down%20Payment&text=In%20essence%2C%20increasing%20the%20amount,which%20automatically%20lowers%20your%20LTV."
+            >An article explaining what Loan-to-Value ratio is and how you can
+            calculate it. It is always better to know the problem first in order
+            to overcome it!</a
+          >
+        </li>
+        <li>
+          <a href="https://wealthfit.com/articles/loan-to-value-ratio/"
+            >A quick read on a couple things you can start doing in order to
+            remove the expense of Private Mortgage Insurance.</a
+          >
+        </li>
+      </ul>
+      {% else %}
+      <li>
+        PMI required: LTV is {{LTV}}%. PMI costs will apply. Your monthly
+        payment will increase to {{PMI}}.
+      </li>
+      <ul>
+        <li>
+          <a
+            href="https://www.rocketmortgage.com/learn/loan-to-value-ratio#:~:text=Make%20A%20Larger%20Down%20Payment&text=In%20essence%2C%20increasing%20the%20amount,which%20automatically%20lowers%20your%20LTV."
+            >An article explaining what Loan-to-Value ratio is and how you can
+            calculate it. It is always better to know the problem first in order
+            to overcome it!</a
+          >
+        </li>
+        <li>
+          <a href="https://wealthfit.com/articles/loan-to-value-ratio/"
+            >A quick read on a couple things you can start doing in order to
+            remove the expense of Private Mortgage Insurance.</a
+          >
+        </li>
+      </ul>
+      {% endif %} {% if eligibilityCheck.DTI == 0 %}
+      <li>
+        Pass: Debt to income ratio is in preferred range of no more than 36%,
+        you are at {{DTI}}
+      </li>
+      {% elif eligibilityCheck.DTI == 1 %}
+      <li>
+        You may not be eligible for a loan with a debt to income ratio of
+        {{DTI}}
+      </li>
+      <ul>
+        <li>
+          <a
+            href="https://crosscountrymortgage.com/how-to-lower-debt-to-income-ratio/#:~:text=Paying%20down%20debt%20is%20the,pay%20off%20the%20vehicle%20sooner."
+          >
+            A list of practical tips and tricks to lower your Debt-to-Income
+            Ratio. You have many options to take and the sooner you start
+            lowering your DTI, the more you won't have to be worried when
+            applying for a mortgage.</a
+          >
+        </li>
+      </ul>
+      {% else %}
+      <li>
+        You have a DTI rato of {{DTI}}. You could try transferring loans into a
+        low interest credit card as a way of lowering your Debt to income ratio.
+        I have some articles you can read on how you can go about doing this.
+      </li>
+      <ul>
+        <li>
+          <a
+            href="https://crosscountrymortgage.com/how-to-lower-debt-to-income-ratio/#:~:text=Paying%20down%20debt%20is%20the,pay%20off%20the%20vehicle%20sooner."
+          >
+            A list of practical tips and tricks to lower your Debt-to-Income
+            Ratio. You have many options to take and the sooner you start
+            lowering your DTI, the more you won't have to be worried when
+            applying for a mortgage.</a
+          >
+        </li>
+      </ul>
+      {% endif %} {% if eligibilityCheck.FEDTI %}
+      <li>
+        Great job, it looks like your front-end debt to income is less than or
+        equal to 28% and is in fact {{FEDTI}}.
+      </li>
+      {% else %}
+      <li>
+        Sorry to say but your front-end debt to income was not less than or
+        equal to 28%. It was {{FEDTI}}. Do not worry at all though, I have great
+        resources on reducing your FEDTI.
+      </li>
+      <ul>
+        <li>
+          <a
+            href="https://www.investopedia.com/terms/f/front-end-debt-to-income-ratio.asp"
+            >A fantastic read explaining Front-End Debt-to-Income in detail and
+            even ways to improve it for mortgages.</a
+          >
+        </li>
+      </ul>
       {% endif %}
-      <a
-        href="https://www.rocketmortgage.com/learn/loan-to-value-ratio#:~:text=Make%20A%20Larger%20Down%20Payment&text=In%20essence%2C%20increasing%20the%20amount,which%20automatically%20lowers%20your%20LTV."
-        >An article explaining what Loan-to-Value ratio is and how you can
-        calculate it. It is always better to know the problem first in order to
-        overcome it!</a
-      >
-      <a href="https://wealthfit.com/articles/loan-to-value-ratio/"
-        >A quick read on a couple things you can start doing in order to remove
-        the expense of Private Mortgage Insurance.</a
-      >
-      <a
-        href="https://crosscountrymortgage.com/how-to-lower-debt-to-income-ratio/#:~:text=Paying%20down%20debt%20is%20the,pay%20off%20the%20vehicle%20sooner."
-      >
-        A list of practical tips and tricks to lower your Debt-to-Income Ratio.
-        You have many options to take and the sooner you start lowering your
-        DTI, the more you won't have to be worried when applying for a
-        mortgage.</a
-      >
-      <a
-        href="https://www.investopedia.com/terms/f/front-end-debt-to-income-ratio.asp"
-        >A fantastic read explaining Front-End Debt-to-Income in detail and even
-        ways to improve it for mortgages.</a
-      >
     </ul>
   </body>
 </html>
