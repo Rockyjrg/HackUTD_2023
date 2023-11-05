@@ -5,9 +5,9 @@
     <link href="{{url_for('static',filename='css/main.css')}}" rel="stylesheet">
   </head>
   <body>
-    <div class="flex h-screen">
-    <div class="m-auto">
-    <h2 class="text-2xl">Eligibility Results</h2>
+    <div class="flex h-screen items-center">
+    <div class="m-auto flex flex-col items-center">
+    <h2 class="text-2xl m-5">Eligibility Results</h2>
     {% if eligibilityCheck.Approved %}
     <h1 class="text-3xl text-green-500">Great Job!</h1>
     <h3 class="text-lg">Looks like you're ready to buy a home!</h3>
@@ -29,21 +29,21 @@
         can help you raise your scores:
       <ul class="list-disc">
         <li>
-          <a
+          <a class="underline"
             href="https://yourhome.fanniemae.com/rent/credit-basics#:~:text=Showing%20consistent%20on%2Dtime%20payments,you%20achieve%20your%20financial%20goals."
             >A great resource from Fannie Mae on building credit slowly but
             surely.</a
           >
         </li>
         <li>
-          <a
+          <a class="underline"
             href="https://www.nerdwallet.com/article/finance/raise-credit-score-fast"
             >A list of realistics things you can do to raise your credit score
             and be on the track to your dream credit!</a
           >
         </li>
         <li>
-          <a
+          <a class="underline"
             href="https://www.capitalone.com/learn-grow/money-management/improve-credit-score/"
             >Another article of reasons from one of the biggest banks in the
             country. If anyone can help, it's them!</a
@@ -54,8 +54,8 @@
       {% endif %} {% if eligibilityCheck.LTV == 0 %}
       <div class="p-10 m-10 shadow-lg flex flex-col items-center bg-cyan-50 text-cyan-950 justify-around rounded-lg">
         <p>You have a LTV of below 80, it is {{LTV}}. No Need for PMI</p>
-        </div>
-      {% elif eligibilityCheck.LTV == 1 %}
+    </div>
+      {% elif eligibilityCheck.LTV == 2 %}
       <div class="p-10 m-10 shadow-lg flex flex-col items-center bg-cyan-50 text-cyan-950 justify-around rounded-lg">
         <p>
         Sorry, your LTV is above 95%. Your current LTV is {{LTV}}. Consider
@@ -64,9 +64,9 @@
         linked some articles just for you to learn more about what you can do to
         lower it.
         </p>
-      <ul>
+      <ul class="list-disc">
         <li>
-          <a
+          <a class="underline"
             href="https://www.rocketmortgage.com/learn/loan-to-value-ratio#:~:text=Make%20A%20Larger%20Down%20Payment&text=In%20essence%2C%20increasing%20the%20amount,which%20automatically%20lowers%20your%20LTV."
             >An article explaining what Loan-to-Value ratio is and how you can
             calculate it. It is always better to know the problem first in order
@@ -74,7 +74,7 @@
           >
         </li>
         <li>
-          <a href="https://wealthfit.com/articles/loan-to-value-ratio/"
+          <a class="underline" href="https://wealthfit.com/articles/loan-to-value-ratio/"
             >A quick read on a couple things you can start doing in order to
             remove the expense of Private Mortgage Insurance.</a
           >
@@ -85,21 +85,22 @@
       <div class="p-10 m-10 shadow-lg flex flex-col items-center bg-cyan-50 text-cyan-950 justify-around rounded-lg">
         PMI required: LTV is {{LTV}}%. PMI costs will apply. Your monthly
         payment will increase to {{PMI}}.
-      <ul>
+      <ul class="list-disc">
         <li>
-          <a class="" href="https://www.rocketmortgage.com/learn/loan-to-value-ratio#:~:text=Make%20A%20Larger%20Down%20Payment&text=In%20essence%2C%20increasing%20the%20amount,which%20automatically%20lowers%20your%20LTV."
+          <a class="underline" href="https://www.rocketmortgage.com/learn/loan-to-value-ratio#:~:text=Make%20A%20Larger%20Down%20Payment&text=In%20essence%2C%20increasing%20the%20amount,which%20automatically%20lowers%20your%20LTV."
             >An article explaining what Loan-to-Value ratio is and how you can
             calculate it. It is always better to know the problem first in order
             to overcome it!</a
           >
         </li>
         <li>
-          <a href="https://wealthfit.com/articles/loan-to-value-ratio/"
+          <a class="underline" href="https://wealthfit.com/articles/loan-to-value-ratio/"
             >A quick read on a couple things you can start doing in order to
             remove the expense of Private Mortgage Insurance.</a
           >
         </li>
       </ul>
+      </div>
       {% endif %} {% if eligibilityCheck.DTI == 0 %}
       <div class="p-10 m-10 shadow-lg flex flex-col items-center bg-cyan-50 text-cyan-950 justify-around rounded-lg">
         <p>
@@ -111,11 +112,11 @@
       <div class="p-10 m-10 shadow-lg flex flex-col items-center bg-cyan-50 text-cyan-950 justify-around rounded-lg">
         <p>You may not be eligible for a loan with a debt to income ratio of
         {{DTI}}</p>
-      <ul>
+      <ul class="list-disc">
         <li>
           <a
             href="https://crosscountrymortgage.com/how-to-lower-debt-to-income-ratio/#:~:text=Paying%20down%20debt%20is%20the,pay%20off%20the%20vehicle%20sooner."
-          >
+           class="underline">
             A list of practical tips and tricks to lower your Debt-to-Income
             Ratio. You have many options to take and the sooner you start
             lowering your DTI, the more you won't have to be worried when
@@ -126,12 +127,12 @@
       </div>
       {% else %}
       <div class="p-10 m-10 shadow-lg flex flex-col items-center bg-cyan-50 text-cyan-950 justify-around rounded-lg">
-        You have a DTI ratio of {{DTI}}. You could try transferring loans into a
+        <p>You have a DTI ratio of {{DTI}}. You could try transferring loans into a
         low interest credit card as a way of lowering your Debt to income ratio.
-        I have some articles you can read on how you can go about doing this.
-      <ul>
+        I have some articles you can read on how you can go about doing this.</p>
+      <ul class="list-disc">
         <li>
-          <a
+          <a class="underline"
             href="https://crosscountrymortgage.com/how-to-lower-debt-to-income-ratio/#:~:text=Paying%20down%20debt%20is%20the,pay%20off%20the%20vehicle%20sooner."
           >
             A list of practical tips and tricks to lower your Debt-to-Income
@@ -150,20 +151,22 @@
       </p>
     </div>
       {% else %}
-      <li>
+      <div class="p-10 m-10 shadow-lg flex flex-col items-center bg-cyan-50 text-cyan-950 justify-around rounded-lg">
+      <p>
         Sorry to say but your front-end debt to income was not less than or
         equal to 28%. It was {{FEDTI}}. Do not worry at all though, I have great
         resources on reducing your FEDTI.
-      </li>
-      <ul>
+      </p>
+      <ul class="list-disc">
         <li>
-          <a
+          <a class="underline"
             href="https://www.investopedia.com/terms/f/front-end-debt-to-income-ratio.asp"
             >A fantastic read explaining Front-End Debt-to-Income in detail and
             even ways to improve it for mortgages.</a
           >
         </li>
       </ul>
+    </div>
       {% endif %}
     </div>
     </div>
