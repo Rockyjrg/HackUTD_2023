@@ -1,0 +1,9 @@
+<title>Upload | HomePrepared</title>
+
+<div>
+    <h1>Upload Your Batch File</h1>
+    <form method="post" enctype="multipart/form-data" action={{ url_for('show_data') }}>
+        <input type="file" name="csvFile" accept=".csv">
+        <input type="submit" value="Upload">
+    </form>
+</div>
