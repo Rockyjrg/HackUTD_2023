@@ -80,8 +80,53 @@ def calculator():
 # for viewing results
 @app.route("/user_results", methods=['POST'])
 def user_results():
+    income = float(request.form['income'])
+    credit_card = float(request.form['credit_card'])
+    car_payment = float(request.form['car'])
+    student_loan = float(request.form['student_loan'])
+    appraised_value = float(request.form['appraised_value'])
+    down_payment = float(request.form['down_payment'])
+    loan_amount = float(request.form['loan_amount'])
+    mortgage_payment = float(request.form['mortgage_payment'])
+    credit_score = float(request.form['credit_score'])
 
-    return render_template("results.html")
+    loan_amount = appraised_value - down_payment
+    LTV = round((loan_amount / appraised_value) * 100, ndigits = 2)
+    PMI = round(mortgage_payment * 1.01, ndigits = 2)
+    monthlyDebt = car_payment + credit_card + mortgage_payment + loan_amount
+    DTI = round((monthlyDebt / income) * 100, ndigits = 2)
+    FEDTI = round((mortgage_payment / income) * 100, ndigits = 2)
+
+    eligibilityCheck = []
+
+    eligibilityCheck.append(credit_score)
+    if credit_score > 640:
+        eligibilityCheck.append('Met: {}'.format(credit_score))
+    else:
+        eligibilityCheck.append('Not met: {}'.format(credit_score))
+
+    if LTV < 80:
+        eligibilityCheck.append("You have a LTV of below 80, it is {}. No Need for PMI".format(LTV))
+    elif LTV >= 80 and LTV < 95:
+        eligibilityCheck.append("PMI required: LTV is {}%. PMI costs will apply. Your monthly payment will increase to {}".format(LTV,PMI))
+    else:
+        eligibilityCheck.append("Sorry, your LTV is above 95%. Your current LTV is {}.Consider increasing your down payment.".format(LTV))
+
+    if DTI <= 36 and (mortgage_payment / monthlyDebt) <= 28:
+        eligibilityCheck.append("Pass: Debt to income ratio is in preferred range of no more than 36%, you are at {}.".format(DTI))
+    elif DTI >= 36 and DTI <= 43:
+        eligibilityCheck.append("You may not be eligible for a loan with a debt to income ratio of {}.".format(DTI))
+    else:   
+        eligibilityCheck.append("You have a DTI rato of {}. Try transferring loans into a low interest credit card.".format(DTI))
+
+    if FEDTI <= 28:
+        eligibilityCheck.append('Met: {}'.format(FEDTI))
+    else:
+        eligibilityCheck.append('Not met: {}'.format(FEDTI))
+
+    eligibilityCheck.append('{}, {}, {}, {}, {}, {}, {}'.format(credit_card, car_payment, student_loan, mortgage_payment, monthlyDebt, FEDTI, DTI))
+
+    return render_template("results.html", eligibilityCheck=eligibilityCheck)
 
 def checkEligibility(row):
     id = row['ID']
