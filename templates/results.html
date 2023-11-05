@@ -2,15 +2,24 @@
 <html>
   <head>
     <title>Calculator | HomePrepared</title>
+    <link href="{{url_for('static',filename='css/main.css')}}" rel="stylesheet">
   </head>
   <body>
-    <h1>Homeownership Results</h1>
-    <h2>Eligibility Results</h2>
+    <div class="flex h-screen">
+    <div>
+    <h2 class="text-2xl">Eligibility Results</h2>
+    {% if eligibilityCheck.Approved %}
+    <h1 class="text-3xl text-green-500">Great Job!</h1>
+    <h3 class="text-lg">Looks like you're ready to buy a home!</h3>
+    {% else %}
+    <h1 class="text-3xl text-red-500">Keep Improving!</h1>
+    <h3 class="text-lg">You're not quite ready to buy a home; check out the resources below so you can get there!</h3>
+    {% endif %}
     <ul>
-      {% if eligibilityCheck.credit_score %}
+      {% if eligibilityCheck.CreditScore %}
       <li>
         Great job, it looks like you met the required Credit Score of 640, yours
-        is: {{credit_score}}
+        is: {{credit_score}} {{eligibilityCheck.credit_score}}
       </li>
       {% else %}
       <li>
@@ -151,5 +160,7 @@
       </ul>
       {% endif %}
     </ul>
+    </div>
+    </div>
   </body>
 </html>
