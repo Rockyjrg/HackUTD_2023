@@ -93,7 +93,7 @@ def user_results():
     loan_amount = appraised_value - down_payment
     LTV = round((loan_amount / appraised_value) * 100, ndigits = 2)
     PMI = round(mortgage_payment * 1.01, ndigits = 2)
-    monthlyDebt = car_payment + credit_card + mortgage_payment + loan_amount
+    monthlyDebt = car_payment + credit_card + mortgage_payment + loan_amount + student_loan
     DTI = round((monthlyDebt / income) * 100, ndigits = 2)
     FEDTI = round((mortgage_payment / income) * 100, ndigits = 2)
 
