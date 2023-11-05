@@ -106,31 +106,38 @@ def checkEligibility(row):
     # eligibility check
     eligibilityCheck = {
         "ID": 0,
-        "creditScore": False,
-        "ltv": 0,
-        "pmi": False,
-        "dtv": 0,
-        "fedti": False
+        "CreditScore": False,
+        "LTV": 0,
+        "PMI": False,
+        "DTV": 0,
+        "FEDTI": False,
+        "Approved": False
     }
 
     eligibilityCheck["ID"] = id
 
-    eligibilityCheck["creditScore"] = credit_score > 640
+    eligibilityCheck["CreditScore"] = (credit_score > 640)
     
     if dti <= 36 and (mortgage_payment / monthlyDebt) <= 28:
-        eligibilityCheck["dtv"] = 0
+        eligibilityCheck["DTV"] = 0
     elif dti >= 36 and dti <= 43:
-        eligibilityCheck["dtv"] = 1
+        eligibilityCheck["DTV"] = 1
     else:   
-        eligibilityCheck["dtv"] = 2
+        eligibilityCheck["DTV"] = 2
 
     if ltv < 80:
-        eligibilityCheck["ltv"] = 0
+        eligibilityCheck["LTV"] = 0
     elif ltv >= 80 and ltv < 95:
-        eligibilityCheck["ltv"] = 1
-        eligibilityCheck["pmi"] = True
+        eligibilityCheck["LTV"] = 1
+        eligibilityCheck["PMI"] = True
     else:
-        eligibilityCheck["ltv"] = 2
+        eligibilityCheck["LTV"] = 2
 
-    eligibilityCheck["fedti"] = fedti <= 28
+    eligibilityCheck["FEDTI"] = fedti <= 28
+
+    if (eligibilityCheck["CreditScore"] 
+        and (eligibilityCheck["LTV"]==0 or eligibilityCheck["LTV"]==1)
+        and eligibilityCheck["FEDTI"]
+        and (eligibilityCheck["DTV"]==0 or eligibilityCheck["DTV"]==1)):
+        eligibilityCheck["Approved"] = True
     return eligibilityCheck
