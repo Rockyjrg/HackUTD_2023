@@ -45,11 +45,24 @@ def show_data():
             return redirect (request.url)
         filename = secure_filename(file.filename)
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        file_path = os.path.join(app.config['UPLOAD_FOLDER'],filename)
         # allows accessing same file from other pages!
         # session['uploaded_csv_path'] = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         # return redirect(url_for('show_data'))
         # file_path = session.get('uploaded_csv_path')
+
+        df = pandas.read_csv(file_path)
+        listOfDicts = []
+
+        for index, row in df.iterrows():
+            eligibilityCheck = checkEligibility(row)
+            listOfDicts.append(eligibilityCheck)
+
+        newdf = pandas.DataFrame(listOfDicts)
+        out = pandas.merge(df, newdf, on="ID").to_csv(os.path.join(app.config['UPLOAD_FOLDER'], "out.csv"), index=False)
+
+        file_path = os.path.join(app.config['UPLOAD_FOLDER'],"out.csv")
+
         uploaded_csv = pandas.read_csv(file_path, nrows=300)
         html_csv = uploaded_csv.to_html()
         return render_template("data.html", csv_data=html_csv)
@@ -67,14 +80,57 @@ def calculator():
 # for viewing results
 @app.route("/user_results", methods=['POST'])
 def user_results():
-    income = request.form['income']
-    credit_card = request.form['credit_card']
-    car = request.form['car']
-    student_loan = request.form['student_loan']
-    appraised_value = request.form['appraised_value']
-    down_payment = request.form['down_payment']
-    loan_amount = request.form['loan_amount']
-    mortgage_payment = request.form['mortgage_payment']
-    credit_score = request.form['credit_score']
-    # print(income, credit_card, car, student_loan, appraised_value, down_payment, loan_amount, mortgage_payment, credit_score);
+
     return render_template("results.html")
+
+def checkEligibility(row):
+    id = row['ID']
+    income = row['GrossMonthlyIncome']
+    credit_card = row['CreditCardPayment']
+    car_payment = row['CarPayment']
+    loan_payments = row['StudentLoanPayments']
+    appraised_value = row['AppraisedValue']
+    down_payment = row['DownPayment']
+    loan_amount = row['LoanAmount']
+    mortgage_payment = row['MonthlyMortgagePayment']
+    credit_score = row['CreditScore']
+
+    # print(income, credit_card, car, student_loan, appraised_value, down_payment, loan_amount, mortgage_payment, credit_score);
+    
+    loan_amount = appraised_value - down_payment
+    ltv = round((loan_amount / appraised_value) * 100, ndigits = 2)
+    monthlyDebt = car_payment + credit_card + mortgage_payment + loan_payments
+    dti = round((monthlyDebt / income) * 100, ndigits = 2)
+    fedti = round((mortgage_payment / income) * 100, ndigits = 2)
+
+    # eligibility check
+    eligibilityCheck = {
+        "ID": 0,
+        "creditScore": False,
+        "ltv": 0,
+        "pmi": False,
+        "dtv": 0,
+        "fedti": False
+    }
+
+    eligibilityCheck["ID"] = id
+
+    eligibilityCheck["creditScore"] = credit_score > 640
+    
+    if dti <= 36 and (mortgage_payment / monthlyDebt) <= 28:
+        eligibilityCheck["dtv"] = 0
+    elif dti >= 36 and dti <= 43:
+        eligibilityCheck["dtv"] = 1
+    else:   
+        eligibilityCheck["dtv"] = 2
+
+    if ltv < 80:
+        eligibilityCheck["ltv"] = 0
+    elif ltv >= 80 and ltv < 95:
+        eligibilityCheck["ltv"] = 1
+        eligibilityCheck["pmi"] = True
+    else:
+        eligibilityCheck["ltv"] = 2
+
+    eligibilityCheck["fedti"] = fedti <= 28
+    return eligibilityCheck
