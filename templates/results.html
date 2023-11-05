@@ -52,7 +52,9 @@
       </ul>
       </div>
       {% endif %} {% if eligibilityCheck.LTV == 0 %}
-      <div class="p-10 m-10 shadow-lg flex flex-col items-center bg-cyan-50 text-cyan-950 justify-around rounded-lg"><p>You have a LTV of below 80, it is {{LTV}}. No Need for PMI</p></div>
+      <div class="p-10 m-10 shadow-lg flex flex-col items-center bg-cyan-50 text-cyan-950 justify-around rounded-lg">
+        <p>You have a LTV of below 80, it is {{LTV}}. No Need for PMI</p>
+        </div>
       {% elif eligibilityCheck.LTV == 1 %}
       <div class="p-10 m-10 shadow-lg flex flex-col items-center bg-cyan-50 text-cyan-950 justify-around rounded-lg">
         <p>

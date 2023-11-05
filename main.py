@@ -113,7 +113,7 @@ def show_data():
         uploaded_csv = pandas.read_csv(file_path, nrows=300)
         html_csv = uploaded_csv.to_html()
 
-        return render_template("data.html", csv_data=html_csv, file="out.png", file2="out2.png")
+        return render_template("data.html", csv_data=html_csv, file="out.png", file2="out2.png", filename="out.csv")
     return render_template("data.html", csv_data="", file="", file2 = "")
 
 @app.route("/results/<filename>")
