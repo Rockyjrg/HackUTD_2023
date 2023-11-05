@@ -80,30 +80,28 @@ def calculator():
 # for viewing results
 @app.route("/user_results", methods=['POST'])
 def user_results():
-    income = float(request.form['income'])
-    credit_card = float(request.form['credit_card'])
-    car_payment = float(request.form['car'])
-    student_loan = float(request.form['student_loan'])
-    appraised_value = float(request.form['appraised_value'])
-    down_payment = float(request.form['down_payment'])
-    loan_amount = float(request.form['loan_amount'])
-    mortgage_payment = float(request.form['mortgage_payment'])
-    credit_score = float(request.form['credit_score'])
+    row = {
+        'ID': 1,
+        'GrossMonthlyIncome': float(request.form['income']),
+        'CreditCardPayment': float(request.form['credit_card']),
+        'CarPayment': float(request.form['car']),
+        'StudentLoanPayments': float(request.form['student_loan']),
+        'AppraisedValue': float(request.form['appraised_value']),
+        'DownPayment': float(request.form['down_payment']),
+        'LoanAmount': float(request.form['loan_amount']),
+        'MonthlyMortgagePayment': float(request.form['mortgage_payment']),
+        'CreditScore': float(request.form['credit_score'])
+    }
 
-    loan_amount = appraised_value - down_payment
-    LTV = round((loan_amount / appraised_value) * 100, ndigits = 2)
-    PMI = round(mortgage_payment * 1.01, ndigits = 2)
-<<<<<<< HEAD
-    monthlyDebt = car_payment + credit_card + mortgage_payment + loan_amount + student_loan
-=======
-    monthlyDebt = car_payment + credit_card + mortgage_payment + student_loan
->>>>>>> 77dacf3c8c600ed818efa3035c7ec79612a9fdc6
-    DTI = round((monthlyDebt / income) * 100, ndigits = 2)
-    FEDTI = round((mortgage_payment / income) * 100, ndigits = 2)
+    LTV = round((row['LoanAmount'] / row['AppraisedValue']) * 100, ndigits = 2)
+    PMI = round(row['MonthlyMortgagePayment'] * 1.01, ndigits = 2)
+    monthlyDebt = row['CarPayment'] + row['CreditCardPayment'] + row['MonthlyMortgagePayment'] + row['StudentLoanPayments']
+    DTI = round((monthlyDebt / row['GrossMonthlyIncome']) * 100, ndigits = 2)
+    FEDTI = round((row['MonthlyMortgagePayment'] / row['GrossMonthlyIncome']) * 100, ndigits = 2)
 
-    eligibilityCheck = []
+    eligibilityCheck = checkEligibility(row)
 
-    if credit_score > 640:
+    '''if credit_score > 640:
         eligibilityCheck.append('Great job, it looks like you met the required Credit Score: {}'.format(credit_score))
     else:
         eligibilityCheck.append("Sorry it looks like you didn't exactly reach the required credit score of 640 since you had a {}, but that doesn't mean you should give up.\n I have some great resources for you to check out that can help you raise your scores: \n".format(credit_score))
@@ -126,9 +124,9 @@ def user_results():
         eligibilityCheck.append("Great job, it looks like your front-end debt to income is less than or equal to 28% and is in fact {}".format(FEDTI))
     else:
         eligibilityCheck.append('Sorry to say but your front-end debt to income was not less than or equal to 28%. It was {}.\n Do not worry at all though, I have great resources on reducing your FEDTI'.format(FEDTI))
+    '''
 
-
-    return render_template("results.html", eligibilityCheck=eligibilityCheck, credit_score=credit_score)
+    return render_template("results.html", eligibilityCheck=eligibilityCheck, credit_score=row['CreditScore'], LTV=LTV, DTI=DTI, PMI=PMI, FEDTI=FEDTI)
 
 def checkEligibility(row):
     id = row['ID']
