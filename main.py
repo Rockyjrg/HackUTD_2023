@@ -124,7 +124,7 @@ def user_results():
         eligibilityCheck.append('Sorry to say but your front-end debt to income was not less than or equal to 28%. It was {}.\n Do not worry at all though, I have great resources on reducing your FEDTI'.format(FEDTI))
 
 
-    return render_template("results.html", eligibilityCheck=eligibilityCheck)
+    return render_template("results.html", eligibilityCheck=eligibilityCheck, credit_score=credit_score)
 
 def checkEligibility(row):
     id = row['ID']

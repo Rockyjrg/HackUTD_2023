@@ -1,9 +1,14 @@
-<title>Upload | HomePrepared</title>
+<head>
+    <link href="{{url_for('static',filename='css/main.css')}}" rel="stylesheet" />
+    <title>Upload | HomePrepared</title>
+</head>
 
-<div>
-    <h1>Upload Your Batch File</h1>
-    <form method="post" enctype="multipart/form-data" action={{ url_for('show_data') }}>
-        <input type="file" name="csvFile" accept=".csv">
-        <input type="submit" value="Upload">
-    </form>
+<div class="flex h-screen">
+    <div class="p-10 m-auto shadow-lg flex flex-col items-center h-2/4 bg-cyan-50 text-cyan-950 justify-around rounded-lg">
+        <h1 class="text-3xl">Upload Your Batch File</h1>
+        <form method="post" enctype="multipart/form-data" action={{ url_for('show_data') }}>
+            <input class="p-5 bg-cyan-700 text-cyan-50 rounded-md hover:bg-cyan-800 hover:ring-1 hover:ring-inset" type="file" name="csvFile" accept=".csv">
+            <input class="p-5 bg-cyan-700 text-cyan-50 rounded-md hover:bg-cyan-800 hover:ring-1 hover:ring-inset" type="submit" value="Upload">
+        </form>
+    </div>
 </div>

@@ -588,6 +588,11 @@ video {
   background-color: rgb(14 116 144 / var(--tw-bg-opacity));
 }
 
+.bg-cyan-800 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(21 94 117 / var(--tw-bg-opacity));
+}
+
 .p-10 {
   padding: 2.5rem;
 }
@@ -634,6 +639,11 @@ video {
 .hover\:bg-cyan-800:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(21 94 117 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-cyan-900:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(22 78 99 / var(--tw-bg-opacity));
 }
 
 .hover\:ring-1:hover {
