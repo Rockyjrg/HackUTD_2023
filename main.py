@@ -67,5 +67,14 @@ def calculator():
 # for viewing results
 @app.route("/user_results", methods=['POST'])
 def user_results():
-
+    income = request.form['income']
+    credit_card = request.form['credit_card']
+    car = request.form['car']
+    student_loan = request.form['student_loan']
+    appraised_value = request.form['appraised_value']
+    down_payment = request.form['down_payment']
+    loan_amount = request.form['loan_amount']
+    mortgage_payment = request.form['mortgage_payment']
+    credit_score = request.form['credit_score']
+    # print(income, credit_card, car, student_loan, appraised_value, down_payment, loan_amount, mortgage_payment, credit_score);
     return render_template("results.html")
