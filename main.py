@@ -63,3 +63,9 @@ def download_results(filename):
 @app.route("/calculator")
 def calculator():
     return render_template("calculator.html")
+
+# for viewing results
+@app.route("/user_results", methods=['POST'])
+def user_results():
+
+    return render_template("results.html")

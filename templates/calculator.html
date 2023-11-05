@@ -1,29 +1,66 @@
-<title>Calculator | HomePrepared</title>
+<head>
+    <title>Calculator | HomePrepared</title>
 
-<h1>Are you qualified for homeownership?</h1>
-<form>
-    <label id="1">Input your gross monthly income:</label>
-    <input id="2" type="number" name="income">
-    <label id="3">Input your monthly credit card payment:</label>
-    <input id="4" type="number" name="credit_card">
-    <label id="5">Input your monthly car payment:</label>
-    <input id="6" type="number" name="car">
-    <label id="7">Input your monthly student loan payment:</label>
-    <input id="8" type="number" name="student_loan">
-    <label id="9">Input your desired home's appraised value:</label>
-    <input id="10" type="number" name="appraised_value">
-    <label id="11">Input your down payment:</label>
-    <input id="12" type="number" name="down_payment">
-    <label id="13">Input your loan amount:</label>
-    <input id="14" type="number" name="loan_amount">
-    <label id="15">Input your monthly mortgage payment:</label>
-    <input id="16" type="number" name="mortgage_payment">
-    <label id="17">Input your credit score:</label>
-    <input id="18" type="number" name="credit_score">
-    <input id="19" type="submit">
+    <link href="{{url_for('static',filename='css/main.css')}}" rel="stylesheet">
+</head>
+<body>
+<div class="flex h-screen">
+
+<form method="post" action={{url_for('user_results')}} class="m-auto shadow-lg flex flex-col items-center w-6/12 h-2/4 bg-cyan-200 text-slate-950 justify-around">
+    <h1 class="text-3xl">Are you qualified for homeownership?</h1>
+    <input style='display:none' disabled style='display:none' type="submit">
+    <label id="l1">Input your gross monthly income:</label>
+    <input id="i1" type="number" name="income">
+    <button type="button" id="b1" onclick="showNext(2)">next!</button>
+    <label style='display:none' id="l2">Input your monthly credit card payment:</label>
+    <input style='display:none' id="i2" type="number" name="credit_card">
+    <button style='display:none' type="button" id="b2" onclick="showNext(3)">next!</button>
+    <label style='display:none' id="l3">Input your monthly car payment:</label>
+    <input style='display:none' id="i3" type="number" name="car">
+    <button style='display:none' type="button" id="b3" onclick="showNext(4)">next!</button>
+    <label style='display:none' id="l4">Input your monthly student loan payment:</label>
+    <input style='display:none' id="i4" type="number" name="student_loan">
+    <button style='display:none' type="button" id="b4" onclick="showNext(5)">next!</button>
+    <label style='display:none' id="l5">Input your desired home's appraised value:</label>
+    <input style='display:none' id="i5" type="number" name="appraised_value">
+    <button style='display:none' type="button" id="b5" onclick="showNext(6)">next!</button>
+    <label style='display:none' id="l6">Input your down payment:</label>
+    <input style='display:none' id="i6" type="number" name="down_payment">
+    <button style='display:none' type="button" id="b6" onclick="showNext(7)">next!</button>
+    <label style='display:none' id="l7">Input your loan amount:</label>
+    <input style='display:none' id="i7" type="number" name="loan_amount">
+    <button style='display:none' type="button" id="b7" onclick="showNext(8)">next!</button>
+    <label style='display:none' id="l8">Input your monthly mortgage payment:</label>
+    <input style='display:none' id="i8" type="number" name="mortgage_payment">
+    <button style='display:none' type="button" id="b8" onclick="showNext(9)">next!</button>
+    <label style='display:none' id="l9">Input your credit score:</label>
+    <input style='display:none' id="i9" type="number" name="credit_score">
+    <input style='display:none' id="b9" type="submit">
 </form>
+</div>
 <script>
-    for (let i=0; i < 5; i++) {
 
-    }
+function showNext(n) {
+    let oldLabel = document.getElementById("l" + (n-1).toString());
+    let oldValue = document.getElementById("i" + (n-1).toString());
+    let oldButton = document.getElementById("b" + (n-1).toString());
+
+    if (oldValue.value == '') return;
+
+    oldLabel.style.display = 'none';
+    oldValue.style.display = 'none';
+    oldButton.style.display = 'none';
+
+    let newLabel = document.getElementById("l" + n.toString());
+    let newValue = document.getElementById("i" + (n).toString());
+    let newButton = document.getElementById("b" + (n).toString());
+
+    newLabel.style.display = 'block';
+    newValue.style.display = 'block';
+    newButton.style.display = 'block';
+
+    
+
+}
 </script>
+</body>
