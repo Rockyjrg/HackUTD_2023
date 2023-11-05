@@ -542,6 +542,10 @@ video {
   margin: auto;
 }
 
+.mb-1 {
+  margin-bottom: 0.25rem;
+}
+
 .block {
   display: block;
 }
@@ -556,6 +560,10 @@ video {
 
 .h-screen {
   height: 100vh;
+}
+
+.w-6\/12 {
+  width: 50%;
 }
 
 .flex-col {
@@ -605,6 +613,15 @@ video {
   padding: 1.25rem;
 }
 
+.text-center {
+  text-align: center;
+}
+
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
 .text-3xl {
   font-size: 1.875rem;
   line-height: 2.25rem;
@@ -634,6 +651,11 @@ video {
 
 .ring-inset {
   --tw-ring-inset: inset;
+}
+
+.ring-red-500 {
+  --tw-ring-opacity: 1;
+  --tw-ring-color: rgb(239 68 68 / var(--tw-ring-opacity));
 }
 
 .hover\:bg-cyan-800:hover {

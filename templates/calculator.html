@@ -45,7 +45,10 @@ function showNext(n) {
     let oldValue = document.getElementById("i" + (n-1).toString());
     let oldButton = document.getElementById("b" + (n-1).toString());
 
-    if (oldValue.value == '') return;
+    if (oldValue.value == '') {
+        oldValue.classList.add("ring-red-500");
+        return;
+    };
 
     oldLabel.style.display = 'none';
     oldValue.style.display = 'none';
