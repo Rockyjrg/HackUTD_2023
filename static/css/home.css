@@ -1,0 +1,34 @@
+.center {
+    text-align: center;
+    margin: auto;
+}
+
+.btn {
+  background-color: #0068B1; 
+  font-family: 'Lexend Deca', sans-serif;
+  text-transform: uppercase;
+  color: white;
+  padding: 20px; 
+  width: 100px;
+  border-radius: 10px;
+  display:inline-block;
+  text-align: center;
+  margin: auto;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn1 {
+  background-color: #0068B1; 
+  font-family: 'Lexend Deca', sans-serif;
+  text-transform: uppercase;
+  color: white;
+  padding: 20px; 
+  width: 100px;
+  border-radius: 10px;
+  display: inline-block;
+  text-align: center;
+  margin: auto;
+  justify-content: center;
+  align-items: center;
+}

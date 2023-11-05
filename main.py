@@ -99,32 +99,30 @@ def user_results():
 
     eligibilityCheck = []
 
-    eligibilityCheck.append(credit_score)
     if credit_score > 640:
-        eligibilityCheck.append('Met: {}'.format(credit_score))
+        eligibilityCheck.append('Great job, it looks like you met the required Credit Score: {}'.format(credit_score))
     else:
-        eligibilityCheck.append('Not met: {}'.format(credit_score))
-
+        eligibilityCheck.append("Sorry it looks like you didn't exactly reach the required credit score of 640 since you had a {}, but that doesn't mean you should give up.\n I have some great resources for you to check out that can help you raise your scores: \n".format(credit_score))
+    
     if LTV < 80:
         eligibilityCheck.append("You have a LTV of below 80, it is {}. No Need for PMI".format(LTV))
     elif LTV >= 80 and LTV < 95:
         eligibilityCheck.append("PMI required: LTV is {}%. PMI costs will apply. Your monthly payment will increase to {}".format(LTV,PMI))
     else:
-        eligibilityCheck.append("Sorry, your LTV is above 95%. Your current LTV is {}.Consider increasing your down payment.".format(LTV))
+        eligibilityCheck.append("Sorry, your LTV is above 95%. Your current LTV is {}. Consider increasing your down payment if you are able to, if not it isn't the end of the world. There are more ways to decrease your LTV to 80%. I have linked some articles just for you.".format(LTV))
 
     if DTI <= 36 and (mortgage_payment / monthlyDebt) <= 28:
         eligibilityCheck.append("Pass: Debt to income ratio is in preferred range of no more than 36%, you are at {}.".format(DTI))
     elif DTI >= 36 and DTI <= 43:
         eligibilityCheck.append("You may not be eligible for a loan with a debt to income ratio of {}.".format(DTI))
     else:   
-        eligibilityCheck.append("You have a DTI rato of {}. Try transferring loans into a low interest credit card.".format(DTI))
+        eligibilityCheck.append("You have a DTI rato of {}. You could try transferring loans into a low interest credit card as a way of lowering your Debt to income ratio. I have some articles you can read on how you can go about doing this".format(DTI))
 
     if FEDTI <= 28:
-        eligibilityCheck.append('Met: {}'.format(FEDTI))
+        eligibilityCheck.append("Great job, it looks like your front-end debt to income is less than or equal to 28% and is in fact {}".format(FEDTI))
     else:
-        eligibilityCheck.append('Not met: {}'.format(FEDTI))
+        eligibilityCheck.append('Sorry to say but your front-end debt to income was not less than or equal to 28%. It was {}.\n Do not worry at all though, I have great resources on reducing your FEDTI'.format(FEDTI))
 
-    eligibilityCheck.append('{}, {}, {}, {}, {}, {}, {}'.format(credit_card, car_payment, student_loan, mortgage_payment, monthlyDebt, FEDTI, DTI))
 
     return render_template("results.html", eligibilityCheck=eligibilityCheck)
 

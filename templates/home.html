@@ -1,5 +1,16 @@
-<title>HomePrepared | Your Path to Homeownership</title>
+<head>
+  <title>HomePrepared | Your Path to Homeownership</title>
+  <link href="{{url_for('static',filename='css/home.css')}}" rel="stylesheet" />
+</head>
 
-<h1>Welcome! This is your portal to homeownership!</h1>
-<a href={{ url_for('upload') }}>upload<a>
-<a href={{ url_for('calculator') }}>calculator<a>
+<body>
+  <div class="center">
+    <h1>Welcome! This is your portal to home ownership!</h1>
+  </div>
+  <div class="btn">
+    <a href={{ url_for('upload') }}>upload<a>
+   </div>
+   <div class="btn1">
+    <a href={{ url_for('calculator') }}>calculator<a>
+  </div>
+</body>

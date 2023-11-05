@@ -1,6 +1,71 @@
-<title>Calculator | HomePrepared</title>
-
-{% for string in eligibilityCheck %}
-<p>{{string}}</p>
-{% endfor %}
-
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Calculator | HomePrepared</title>
+  </head>
+  <body>
+    <h1>Homeownership Results</h1>
+    <h2>Eligibility Results</h2>
+    <ul>
+      {% if eligibilityCheck.credit_score %}
+      <li>
+        Great job, it looks like you met the required Credit Score:
+        {{eligibilityCheck.credit_score}}
+      </li>
+      {% else %}
+      <li>
+        Sorry it looks like you didn't exactly reach the required credit score
+        of 640 since you had a {{eligibilityCheck.credit_score}}, but that
+        doesn't mean you should give up. I have some great resources for you to
+        check out that can help you raise your scores:
+      </li>
+      <ul>
+        <li>
+          <a
+            href="https://yourhome.fanniemae.com/rent/credit-basics#:~:text=Showing%20consistent%20on%2Dtime%20payments,you%20achieve%20your%20financial%20goals."
+            >A great resource from Fannie Mae on building credit slowely but
+            surely.</a
+          >
+        </li>
+        <li>
+          <a
+            href="https://www.nerdwallet.com/article/finance/raise-credit-score-fast"
+            >A list of realistics things you can do to raise your credit score
+            and be on the track to your dream credit!</a
+          >
+        </li>
+        <li>
+          <a
+            href="https://www.capitalone.com/learn-grow/money-management/improve-credit-score/"
+            >Another article of reasons from one of the biggest banks in the
+            country. If anyone can help, it's them!</a
+          >
+        </li>
+      </ul>
+      {% endif %}
+      <a
+        href="https://www.rocketmortgage.com/learn/loan-to-value-ratio#:~:text=Make%20A%20Larger%20Down%20Payment&text=In%20essence%2C%20increasing%20the%20amount,which%20automatically%20lowers%20your%20LTV."
+        >An article explaining what Loan-to-Value ratio is and how you can
+        calculate it. It is always better to know the problem first in order to
+        overcome it!</a
+      >
+      <a href="https://wealthfit.com/articles/loan-to-value-ratio/"
+        >A quick read on a couple things you can start doing in order to remove
+        the expense of Private Mortgage Insurance.</a
+      >
+      <a
+        href="https://crosscountrymortgage.com/how-to-lower-debt-to-income-ratio/#:~:text=Paying%20down%20debt%20is%20the,pay%20off%20the%20vehicle%20sooner."
+      >
+        A list of practical tips and tricks to lower your Debt-to-Income Ratio.
+        You have many options to take and the sooner you start lowering your
+        DTI, the more you won't have to be worried when applying for a
+        mortgage.</a
+      >
+      <a
+        href="https://www.investopedia.com/terms/f/front-end-debt-to-income-ratio.asp"
+        >A fantastic read explaining Front-End Debt-to-Income in detail and even
+        ways to improve it for mortgages.</a
+      >
+    </ul>
+  </body>
+</html>
